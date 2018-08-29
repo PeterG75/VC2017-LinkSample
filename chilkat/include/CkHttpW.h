@@ -2,7 +2,7 @@
 //
 //////////////////////////////////////////////////////////////////////
 
-// This header is generated for Chilkat 9.5.0.69
+// This header is generated for Chilkat 9.5.0.75
 
 #ifndef _CkHttpW_H
 #define _CkHttpW_H
@@ -15,15 +15,16 @@
 class CkByteData;
 class CkHttpResponseW;
 class CkTaskW;
+class CkJsonObjectW;
 class CkBinDataW;
 class CkStringBuilderW;
 class CkCertW;
 class CkHashtableW;
-class CkJsonObjectW;
 class CkHttpRequestW;
 class CkStringArrayW;
 class CkDateTimeW;
 class CkPrivateKeyW;
+class CkSecureStringW;
 class CkHttpProgressW;
 
 
@@ -142,13 +143,19 @@ class CK_VISIBLE_PUBLIC CkHttpW  : public CkClassWithCallbacksW
 	void put_AllowHeaderFolding(bool newVal);
 
 	// If set, then automatically adds the "Authorization: Bearer " header to all
-	// requests.
+	// requests. (If you have an OAuth2 access token, set this property equal to the
+	// OAuth2 access token string. Note: For OAuth1 (older) tokens, use the OAuthTOken
+	// property. )
 	void get_AuthToken(CkString &str);
 	// If set, then automatically adds the "Authorization: Bearer " header to all
-	// requests.
+	// requests. (If you have an OAuth2 access token, set this property equal to the
+	// OAuth2 access token string. Note: For OAuth1 (older) tokens, use the OAuthTOken
+	// property. )
 	const wchar_t *authToken(void);
 	// If set, then automatically adds the "Authorization: Bearer " header to all
-	// requests.
+	// requests. (If you have an OAuth2 access token, set this property equal to the
+	// OAuth2 access token string. Note: For OAuth1 (older) tokens, use the OAuthTOken
+	// property. )
 	void put_AuthToken(const wchar_t *newVal);
 
 	// If set to true, the "Host" header field will automatically be added to the
@@ -494,10 +501,24 @@ class CK_VISIBLE_PUBLIC CkHttpW  : public CkClassWithCallbacksW
 	void put_Connection(const wchar_t *newVal);
 
 	// The amount of time in seconds to wait before timing out when connecting to an
-	// HTTP server.
+	// HTTP server. The default ConnectTimeout is 30 seconds.
+	// 
+	// Note: This is the maximum number of seconds to wait for a server to accept a TCP
+	// connection. Once the connection is accepted, and bytes begin flowing
+	// back-and-forth, then it is the ReadTimeout property that applies. It is the
+	// ReadTimeout that applies when receiving data, which includes the reads that
+	// occur during a TLS handshake.
+	// 
 	int get_ConnectTimeout(void);
 	// The amount of time in seconds to wait before timing out when connecting to an
-	// HTTP server.
+	// HTTP server. The default ConnectTimeout is 30 seconds.
+	// 
+	// Note: This is the maximum number of seconds to wait for a server to accept a TCP
+	// connection. Once the connection is accepted, and bytes begin flowing
+	// back-and-forth, then it is the ReadTimeout property that applies. It is the
+	// ReadTimeout that applies when receiving data, which includes the reads that
+	// occur during a TLS handshake.
+	// 
 	void put_ConnectTimeout(int newVal);
 
 	// Specifies a directory where cookies are automatically persisted if the
@@ -973,6 +994,11 @@ class CK_VISIBLE_PUBLIC CkHttpW  : public CkClassWithCallbacksW
 	// DigestAuth properties beforehand if NTLM or Digest authentication is needed.
 	// However, it is most efficient to pre-set these properties when the type of
 	// authentication is known in advance.
+	// 
+	// Important: If NTLM authentication is used, it may be incorrect to set the Login
+	// property equal to "mydomain\mylogin". Instead, set the LoginDomain property
+	// equal to "mydomain", and set this property equal to "mylogin".
+	// 
 	void get_Login(CkString &str);
 	// The HTTP login for pages requiring a login/password. Chilkat HTTP can do Basic,
 	// Digest, and NTLM HTTP authentication. (NTLM is also known as SPA (or Windows
@@ -981,6 +1007,11 @@ class CK_VISIBLE_PUBLIC CkHttpW  : public CkClassWithCallbacksW
 	// DigestAuth properties beforehand if NTLM or Digest authentication is needed.
 	// However, it is most efficient to pre-set these properties when the type of
 	// authentication is known in advance.
+	// 
+	// Important: If NTLM authentication is used, it may be incorrect to set the Login
+	// property equal to "mydomain\mylogin". Instead, set the LoginDomain property
+	// equal to "mydomain", and set this property equal to "mylogin".
+	// 
 	const wchar_t *login(void);
 	// The HTTP login for pages requiring a login/password. Chilkat HTTP can do Basic,
 	// Digest, and NTLM HTTP authentication. (NTLM is also known as SPA (or Windows
@@ -989,6 +1020,11 @@ class CK_VISIBLE_PUBLIC CkHttpW  : public CkClassWithCallbacksW
 	// DigestAuth properties beforehand if NTLM or Digest authentication is needed.
 	// However, it is most efficient to pre-set these properties when the type of
 	// authentication is known in advance.
+	// 
+	// Important: If NTLM authentication is used, it may be incorrect to set the Login
+	// property equal to "mydomain\mylogin". Instead, set the LoginDomain property
+	// equal to "mydomain", and set this property equal to "mylogin".
+	// 
 	void put_Login(const wchar_t *newVal);
 
 	// The optional domain name to be used with NTLM / Kerberos / Negotiate
@@ -1197,11 +1233,17 @@ class CK_VISIBLE_PUBLIC CkHttpW  : public CkClassWithCallbacksW
 	// 
 	void put_OAuthSigMethod(const wchar_t *newVal);
 
-	// The OAuth token to be used in the Authorization header.
+	// The OAuth1 token to be used in the Authorization header. Note: This is for
+	// OAuth1. It is not the way to add an OAuth2 access token to the request. To add
+	// an OAuth2 access token to the request, set the AuthToken property.
 	void get_OAuthToken(CkString &str);
-	// The OAuth token to be used in the Authorization header.
+	// The OAuth1 token to be used in the Authorization header. Note: This is for
+	// OAuth1. It is not the way to add an OAuth2 access token to the request. To add
+	// an OAuth2 access token to the request, set the AuthToken property.
 	const wchar_t *oAuthToken(void);
-	// The OAuth token to be used in the Authorization header.
+	// The OAuth1 token to be used in the Authorization header. Note: This is for
+	// OAuth1. It is not the way to add an OAuth2 access token to the request. To add
+	// an OAuth2 access token to the request, set the AuthToken property.
 	void put_OAuthToken(const wchar_t *newVal);
 
 	// The OAuth token secret to be used in computing the Authorization header.
@@ -1318,11 +1360,14 @@ class CK_VISIBLE_PUBLIC CkHttpW  : public CkClassWithCallbacksW
 	// 
 	void put_ProxyAuthMethod(const wchar_t *newVal);
 
-	// The domain name of a proxy host if an HTTP proxy is used.
+	// The domain name of a proxy host if an HTTP proxy is used. This can also be set
+	// to an IP address.
 	void get_ProxyDomain(CkString &str);
-	// The domain name of a proxy host if an HTTP proxy is used.
+	// The domain name of a proxy host if an HTTP proxy is used. This can also be set
+	// to an IP address.
 	const wchar_t *proxyDomain(void);
-	// The domain name of a proxy host if an HTTP proxy is used.
+	// The domain name of a proxy host if an HTTP proxy is used. This can also be set
+	// to an IP address.
 	void put_ProxyDomain(const wchar_t *newVal);
 
 	// If an HTTP proxy is used and it requires authentication, this property specifies
@@ -1362,12 +1407,18 @@ class CK_VISIBLE_PUBLIC CkHttpW  : public CkClassWithCallbacksW
 	// additional data is forthcoming. During a long download, if the data stream halts
 	// for more than this amount, it will timeout. Otherwise, there is no limit on the
 	// length of time for the entire download.
+	// 
+	// The default value is 20 seconds.
+	// 
 	int get_ReadTimeout(void);
 	// The amount of time in seconds to wait before timing out when reading from an
 	// HTTP server. The ReadTimeout is the amount of time that needs to elapse while no
 	// additional data is forthcoming. During a long download, if the data stream halts
 	// for more than this amount, it will timeout. Otherwise, there is no limit on the
 	// length of time for the entire download.
+	// 
+	// The default value is 20 seconds.
+	// 
 	void put_ReadTimeout(int newVal);
 
 	// Indicates the HTTP verb, such as GET, POST, PUT, etc. to be used for a redirect
@@ -1461,10 +1512,10 @@ class CK_VISIBLE_PUBLIC CkHttpW  : public CkClassWithCallbacksW
 	void put_RequireSslCertVerify(bool newVal);
 
 	// If true, then all S3_* methods will use a secure SSL/TLS connection for
-	// communications. (If true, Chilkat uses TLS 1.2) The default value is false.
+	// communications. (If true, Chilkat uses TLS 1.2) The default value is true.
 	bool get_S3Ssl(void);
 	// If true, then all S3_* methods will use a secure SSL/TLS connection for
-	// communications. (If true, Chilkat uses TLS 1.2) The default value is false.
+	// communications. (If true, Chilkat uses TLS 1.2) The default value is true.
 	void put_S3Ssl(bool newVal);
 
 	// If this property is true, cookies are automatically persisted to XML files in
@@ -2136,6 +2187,28 @@ class CK_VISIBLE_PUBLIC CkHttpW  : public CkClassWithCallbacksW
 	// The caller is responsible for deleting the object returned by this method.
 	CkTaskW *CloseAllConnectionsAsync(void);
 
+	// Creates an OCSP request for one or more certificates. The requestDetails is a JSON
+	// document describing the content of the OCSP request to be created. The examples
+	// in the links below show how to build the JSON request details.
+	// 
+	// Note: This method only creates an OCSP request. After creating, it may be sent
+	// to a server to get the OCSP response.
+	// 
+	bool CreateOcspRequest(CkJsonObjectW &requestDetails, CkBinDataW &ocspRequest);
+
+	// Creates an RFC 3161 time-stamp request and returns the binary request token in
+	// tmestampToken. The hashAlg can be "sha1", "sha256", "sha384", "sha512", or "md5", The hashVal
+	// is the base64 hash of the data to be timestamped. The optional reqPolicyOid is the
+	// requested policy OID in a format such as "1.3.6.1.4.1.47272.1.2". The addNonce
+	// indicates whether to auto-generate and include a nonce in the request. It may be
+	// true or false. The reqTsaCert determines whether or not to request the TSA's
+	// certificate (true = Yes, false = No).
+	// 
+	// Note: This method only creates a timestamp request. After creating, it may be
+	// sent to a server to get the binary timestamp token.
+	// 
+	bool CreateTimestampRequest(const wchar_t *hashAlg, const wchar_t *hashVal, const wchar_t *reqPolicyOid, bool addNonce, bool reqTsaCert, CkBinDataW &tmestampToken);
+
 	// Clears the Chilkat-wide in-memory hostname-to-IP address DNS cache. Chilkat
 	// automatically maintains this in-memory cache to prevent redundant DNS lookups.
 	// If the TTL on the DNS A records being accessed are short and/or these DNS
@@ -2238,12 +2311,12 @@ class CK_VISIBLE_PUBLIC CkHttpW  : public CkClassWithCallbacksW
 
 	// Convenience method for extracting the META refresh URL from HTML. For example,
 	// if the htmlContent contains a META refresh tag, such as:
-	// <meta http-equiv="refresh" content="5;URL='http://example.com/'">
+	// _LT_meta http-equiv="refresh" content="5;URL='http://example.com/'"_GT_
 	// Then the return value of this method would be "http://example.com/".
 	bool ExtractMetaRefreshUrl(const wchar_t *htmlContent, CkString &outStr);
 	// Convenience method for extracting the META refresh URL from HTML. For example,
 	// if the htmlContent contains a META refresh tag, such as:
-	// <meta http-equiv="refresh" content="5;URL='http://example.com/'">
+	// _LT_meta http-equiv="refresh" content="5;URL='http://example.com/'"_GT_
 	// Then the return value of this method would be "http://example.com/".
 	const wchar_t *extractMetaRefreshUrl(const wchar_t *htmlContent);
 
@@ -2399,6 +2472,21 @@ class CK_VISIBLE_PUBLIC CkHttpW  : public CkClassWithCallbacksW
 	// Http.UnlockComponent before calling any other methods. Passing any string to
 	// UnlockComponent will automatically activate a 30-day trial period.
 	bool IsUnlocked(void);
+
+	// Parses an OCSP reply. Returns the following possible integer values:
+	//     -1: The ocspReply does not contain a valid OCSP reply.
+	//     0: Successful - Response has valid confirmations..
+	//     1: Malformed request - Illegal confirmation request.
+	//     2: Internal error - Internal error in issuer.
+	//     3: Try later - Try again later.
+	//     4: Not used - This value is never returned.
+	//     5: Sig required - Must sign the request.
+	//     6: Unauthorized - Request unauthorized.
+	// 
+	// The binaryOCSP reply is provided in ocspReply. The replyData is populated with data parsed
+	// from ocspReply.
+	// 
+	int ParseOcspReply(CkBinDataW &ocspReply, CkJsonObjectW &replyData);
 
 	// Sends an HTTP request to the url. The verb can be "POST", "PUT", "PATCH", etc.
 	// The body of the HTTP request contains the bytes passed in byteData. The contentType is a
@@ -2806,6 +2894,20 @@ class CK_VISIBLE_PUBLIC CkHttpW  : public CkClassWithCallbacksW
 	// The caller is responsible for deleting the object returned by this method.
 	CkTaskW *ResumeDownloadAsync(const wchar_t *url, const wchar_t *targetFilename);
 
+	// Same as the DownloadBd method, except a failed download may be resumed. The
+	// download will resume at a point based on the number of bytes already contained
+	// in binData. ResumeDownloadBd may be called any number of times until the full
+	// download is complete.
+	// 
+	// The incoming data is appended to binData.
+	// 
+	bool ResumeDownloadBd(const wchar_t *url, CkBinDataW &binData);
+
+	// Creates an asynchronous task to call the ResumeDownloadBd method with the
+	// arguments provided. (Async methods are available starting in Chilkat v9.5.0.52.)
+	// The caller is responsible for deleting the object returned by this method.
+	CkTaskW *ResumeDownloadBdAsync(const wchar_t *url, CkBinDataW &binData);
+
 	// Creates a new Amazon S3 bucket.
 	// 
 	// Note: x-amz-* headers, including metadata, can be added to any S3 request by
@@ -2894,11 +2996,21 @@ class CK_VISIBLE_PUBLIC CkHttpW  : public CkClassWithCallbacksW
 	// S3_GenerateUrlV4 to generate AWS Signature V4 pre-signed URLs.) Requires that
 	// the AwsSecretKey and AwsAccessKey be set to valid values prior to calling this
 	// method.
+	// 
+	// Note: This method can only generate URLs that are for HTTP GET requests (i.e.
+	// URLs you can paste into a browser address bar). This method does not generate
+	// URLs for POST, PUT, DELETE, etc.
+	// 
 	bool S3_GenerateUrl(const wchar_t *bucket, const wchar_t *path, CkDateTimeW &expire, CkString &outStr);
 	// Generates a temporary pre-signed URL for Amazon S3 using AWS Signature V2. (Call
 	// S3_GenerateUrlV4 to generate AWS Signature V4 pre-signed URLs.) Requires that
 	// the AwsSecretKey and AwsAccessKey be set to valid values prior to calling this
 	// method.
+	// 
+	// Note: This method can only generate URLs that are for HTTP GET requests (i.e.
+	// URLs you can paste into a browser address bar). This method does not generate
+	// URLs for POST, PUT, DELETE, etc.
+	// 
 	const wchar_t *s3_GenerateUrl(const wchar_t *bucket, const wchar_t *path, CkDateTimeW &expire);
 
 	// Generates a temporary pre-signed URL for Amazon S3 using AWS Signature V4. (Call
@@ -2915,6 +3027,8 @@ class CK_VISIBLE_PUBLIC CkHttpW  : public CkClassWithCallbacksW
 	// 
 	// The awsService is a string naming the AWS service, such as "s3".   If useHttps is true, then the URL begins with "https://", otherwise it begins with "http://".
 	// 
+	// Note: This method can only generate URLs that are for HTTP GET requests (i.e. URLs you can paste into a browser address bar).  This method does not generate URLs for POST, PUT, DELETE, etc.
+	// 
 	bool S3_GenerateUrlV4(bool useHttps, const wchar_t *bucketName, const wchar_t *path, int numSecondsValid, const wchar_t *awsService, CkString &outStr);
 	// Generates a temporary pre-signed URL for Amazon S3 using AWS Signature V4. (Call
 	// S3_GenerateUrl to generate AWS Signature V2 pre-signed URLs.) Requires that the
@@ -2929,6 +3043,8 @@ class CK_VISIBLE_PUBLIC CkHttpW  : public CkClassWithCallbacksW
 	// &X-Amz-Signature=
 	// 
 	// The awsService is a string naming the AWS service, such as "s3".   If useHttps is true, then the URL begins with "https://", otherwise it begins with "http://".
+	// 
+	// Note: This method can only generate URLs that are for HTTP GET requests (i.e. URLs you can paste into a browser address bar).  This method does not generate URLs for POST, PUT, DELETE, etc.
 	// 
 	const wchar_t *s3_GenerateUrlV4(bool useHttps, const wchar_t *bucketName, const wchar_t *path, int numSecondsValid, const wchar_t *awsService);
 
@@ -3027,6 +3143,10 @@ class CK_VISIBLE_PUBLIC CkHttpW  : public CkClassWithCallbacksW
 	// signature method is used (see the OAuthSigMethod property).
 	bool SetOAuthRsaKey(CkPrivateKeyW &privKey);
 
+	// Equivalent to setting the Password property, but provides for a more secure way
+	// of passing the password in a secure string object.
+	bool SetPassword(CkSecureStringW &password);
+
 	// Adds a custom header field to any HTTP request sent by a method that does not
 	// use the HTTP request object. These methods include Download, DownloadAppend,
 	// GetHead, PostBinary, PostMime, PostXml, PutBinary, PutText, QuickDeleteStr,
@@ -3042,6 +3162,8 @@ class CK_VISIBLE_PUBLIC CkHttpW  : public CkClassWithCallbacksW
 	// all POST, PUT, or any other request where the Content-Length needs to be
 	// specified. (GET requests always have a 0 length body, and therefore never need a
 	// Content-Length header field.)
+	// 
+	// Note: To add more than one header, call this method once per header field.
 	// 
 	void SetRequestHeader(const wchar_t *headerFieldName, const wchar_t *headerFieldValue);
 
@@ -3061,6 +3183,27 @@ class CK_VISIBLE_PUBLIC CkHttpW  : public CkClassWithCallbacksW
 	// https://graph.microsoft.com/v1.0/users/{$id}
 	bool SetUrlVar(const wchar_t *name, const wchar_t *value);
 
+	// Authenticates with SharePoint Online, resulting in a cookie being set and used
+	// for subsequent SharePoint HTTP requests. Prior to calling this method, an
+	// application should set the CookieDir property to either "memory" or a directory
+	// path to persist the SharePoint authentication cookie to be automatically used in
+	// subsequent runs.
+	// 
+	// This method has the side-effect of setting the SaveCookies and SendCookies
+	// properties to true, because these settings are required for SharePoint Online
+	// authentication.
+	// 
+	// The siteUrl is a URL such as "https://yourdomain.sharepoint.com/". The username is an
+	// email address such as "username@yourdomain.com". The extraInfo is reserved for
+	// providing additional information as needed in the future.
+	// 
+	bool SharePointOnlineAuth(const wchar_t *siteUrl, const wchar_t *username, CkSecureStringW &password, CkJsonObjectW &extraInfo);
+
+	// Creates an asynchronous task to call the SharePointOnlineAuth method with the
+	// arguments provided. (Async methods are available starting in Chilkat v9.5.0.52.)
+	// The caller is responsible for deleting the object returned by this method.
+	CkTaskW *SharePointOnlineAuthAsync(const wchar_t *siteUrl, const wchar_t *username, CkSecureStringW &password, CkJsonObjectW &extraInfo);
+
 	// Convenience method to force the calling process to sleep for a number of
 	// milliseconds.
 	void SleepMs(int millisec);
@@ -3070,6 +3213,11 @@ class CK_VISIBLE_PUBLIC CkHttpW  : public CkClassWithCallbacksW
 	// all headers and the response body. This method may be used to send POST
 	// requests, as well as GET, HEAD, file uploads, and XMLHTTP. To send via HTTPS
 	// (i.e. TLS), set the ssl property = true. Otherwise set it to false.
+	// 
+	// NOTE: The 1st argument of this method is a domain, not a URL. For example, DO
+	// NOT pass "https://www.somedomain.com/" in the 1st argument. Instead, pass
+	// "www.somedomain.com".
+	// 
 	// The caller is responsible for deleting the object returned by this method.
 	CkHttpResponseW *SynchronousRequest(const wchar_t *domain, int port, bool ssl, CkHttpRequestW &req);
 
@@ -3092,6 +3240,24 @@ class CK_VISIBLE_PUBLIC CkHttpW  : public CkClassWithCallbacksW
 	bool UrlEncode(const wchar_t *str, CkString &outStr);
 	// URL encodes a string.
 	const wchar_t *urlEncode(const wchar_t *str);
+
+	// Verifies a timestamp reply received from a timestamp authority (TSA). Returns
+	// the following possible integer values:
+	//     -1: The timestampReply does not contain a valid timestamp reply.
+	//     -2: The timestampReply is a valid timestamp reply, but failed verification using the
+	//     public key of the tsaCert.
+	//     0: Granted and verified.
+	//     1: Granted and verified, with mods (see RFC 3161)
+	//     2: Rejected.
+	//     3: Waiting.
+	//     4: Revocation Warning
+	//     5: Revocation Notification
+	// 
+	// If the timestamp reply (timestampReply) is known to be from a trusted source, then the
+	// tsaCert may be empty. If tsaCert is empty (never loaded with a certificate), then the
+	// verification will use the certificate embedded in the timestamp reply.
+	// 
+	int VerifyTimestampReply(CkBinDataW &timestampReply, CkCertW &tsaCert);
 
 	// Makes an XML RPC call to a URL endpoint. The XML string is passed in an HTTP
 	// POST, and the XML response is returned.

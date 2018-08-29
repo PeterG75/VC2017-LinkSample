@@ -2,7 +2,7 @@
 //
 //////////////////////////////////////////////////////////////////////
 
-// This header is generated for Chilkat 9.5.0.69
+// This header is generated for Chilkat 9.5.0.75
 
 #ifndef _CkRest_H
 #define _CkRest_H
@@ -22,6 +22,7 @@ class CkAuthAws;
 class CkAuthAzureAD;
 class CkAuthAzureSAS;
 class CkAuthAzureStorage;
+class CkSecureString;
 class CkAuthGoogle;
 class CkOAuth1;
 class CkOAuth2;
@@ -139,6 +140,21 @@ class CK_VISIBLE_PUBLIC CkRest  : public CkClassWithCallbacks
 	// 116 = Server's Finished message is invalid.
 	// 
 	int get_ConnectFailReason(void);
+
+	// The maximum amount of time to wait for the connection to be accepted by the HTTP
+	// server.
+	// 
+	// Note: Suprisingly, this property was forgotten and not added until Chilkat
+	// v9.5.0.71.
+	// 
+	int get_ConnectTimeoutMs(void);
+	// The maximum amount of time to wait for the connection to be accepted by the HTTP
+	// server.
+	// 
+	// Note: Suprisingly, this property was forgotten and not added until Chilkat
+	// v9.5.0.71.
+	// 
+	void put_ConnectTimeoutMs(int newVal);
 
 	// This property is only valid in programming environment and languages that allow
 	// for event callbacks.
@@ -335,6 +351,14 @@ class CK_VISIBLE_PUBLIC CkRest  : public CkClassWithCallbacks
 	bool AddMwsSignature(const char *httpVerb, const char *uriPath, const char *domain, const char *mwsSecretKey);
 
 
+	// Adds or replaces a path parameter. A path parameter is a string that will be
+	// replaced in any uriPath string passed to a method. For example, if name is
+	// "fileId" and value is "1R_70heIyzIAu1_u0prXbYcaIiJRVkgBl", then a uriPath
+	// argument of "/drive/v3/files/fileId" will be transformed to
+	// "/drive/v3/files/1R_70heIyzIAu1_u0prXbYcaIiJRVkgBl" in a method call.
+	bool AddPathParam(const char *name, const char *value);
+
+
 	// Adds a query parameter. If the query parameter already exists, then it is
 	// replaced.
 	bool AddQueryParam(const char *name, const char *value);
@@ -358,6 +382,10 @@ class CK_VISIBLE_PUBLIC CkRest  : public CkClassWithCallbacks
 	// Removes all sub-parts from a request. This is useful when preparing the REST
 	// object to send a new request after a multipart request has just been sent.
 	bool ClearAllParts(void);
+
+
+	// Clears all path parameters.
+	bool ClearAllPathParams(void);
 
 
 	// Clears all query parameters.
@@ -867,6 +895,11 @@ class CK_VISIBLE_PUBLIC CkRest  : public CkClassWithCallbacks
 	bool SetAuthBasic(const char *username, const char *password);
 
 
+	// The same as SetAuthBasic, but provides a more secure means for passing the
+	// arguments as secure string objects.
+	bool SetAuthBasicSecure(CkSecureString &username, CkSecureString &password);
+
+
 	// Sets the authorization service provider for Google API requests.
 	bool SetAuthGoogle(CkAuthGoogle &authProvider);
 
@@ -923,6 +956,13 @@ class CK_VISIBLE_PUBLIC CkRest  : public CkClassWithCallbacks
 	// If autoSetStreamCharset is true, then the expectedStatus's StringCharset property will automatically get
 	// set based on the charset, if any, indicated in the response header. If the
 	// response is binary, then autoSetStreamCharset is ignored.
+	// 
+	// Starting in v9.5.0.75, the expectedStatus may be passed as a negative number to specify a
+	// range of expected (success) status codes. For example:
+	//     -200: Allow status codes 200 - 299
+	//     -210: Allow status codes 210 - 219
+	//     -220: Allow status codes 220 - 229
+	//     etc.
 	// 
 	bool SetResponseBodyStream(int expectedStatus, bool autoSetStreamCharset, CkStream &responseStream);
 
